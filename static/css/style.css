@@ -1,0 +1,295 @@
+/*********************
+共通
+*********************/
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+    color: red;
+    z-index: 10000;
+}
+
+
+button:hover {
+    cursor: pointer;
+}
+
+body {
+    background-image: url('/static/picture/back-ground.png');
+    background-size: cover; /* 画面全体に背景画像をカバー */
+    font-family:  "ヒラギノ角ゴ ProN W3", HiraKakuProN-W3, 游ゴシック, "Yu Gothic", メイリオ, Meiryo, Verdana, Helvetica, Arial, sans-serif;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+/*********************
+header
+*********************/
+.header {
+    width: 100%;
+    text-align: center;
+    /*background-color: yellow;*/
+    background: linear-gradient(120deg,#f3981d, #ed6d35);
+    background: -moz-linear-gradient(120deg,#f3981d, #ed6d35);
+    background: -webkit-linear-gradient(120deg,#f3981d, #ed6d35);
+    border-radius: 30px;
+    padding: 10px 0;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+}
+
+.header h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.header-box {
+    text-align: center;
+}
+
+
+.header-box a {
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+}
+
+/*********************
+main-container
+*********************/
+.main-container {
+    display: flex;
+    margin-bottom: 100px;
+}
+
+/*********************
+main
+*********************/
+
+.form-date ,.form-match-result,.form-match-point,.form-match-leader{
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.form-memo {
+    width: 300px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+.main button {
+    display: block;
+    width: 50px;
+    height: 40px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+}
+
+/*********************
+data
+*********************/
+
+.data-title { 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.date-filter-h1 {
+    font-size: 25px;
+}
+
+.delete-btn {
+    display: block;
+    width: 100px;
+    background-color: red;
+    height: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+}
+
+.delete-btn:hover {
+    color: yellow;
+}
+
+.data {
+    margin-left: 20px;
+    text-align: center;
+}
+
+.table-container {
+    overflow-y: auto;
+    margin-top: 10px;
+    height: 480px;
+    border: solid 1px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+    
+}
+
+table{
+    table-layout: fixed;
+    border-collapse:  collapse; /* セルの線を重ねる */
+    background-color: #fff3b8;
+    border-radius: 5px;
+}
+
+tr,th ,td {
+    border: solid 1px;
+    width: 300px;
+    padding: 5px;
+}
+
+.td-memo {
+    width: 25px;
+    white-space: normal; /* 折り返しを許可 */
+    word-break: break-word; /* 長い単語も折り返す */
+    overflow-wrap: break-word; /* `word-break`と補完的に動作 */
+}
+
+.th-no,.td-no {
+    width: 30px;
+}
+
+.td-edit,.th-edit {
+    width: 60px;
+
+}
+
+.strong-sum {
+    background-color: #F2E099;
+    border: 1px solid;
+    width: 40%;
+    height: 40px;
+    bottom: 0px;
+    left: 0;
+    border-radius: 5px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/*********************
+filter-container
+*********************/
+.filter-btn {
+    width: 120px;
+    margin-left: 50px;
+    background-color: blue;
+    height: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+}
+
+/**********
+delete-container
+**********/
+
+.delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+}
+
+.delete-wrapper {
+    background-color: white;
+    width: 30%;
+    height: 40%;
+    text-align: center;
+}
+
+.delete-wrapper p {
+    height: 40%;
+    font-size: 40px;
+}
+
+.delete-select-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.delete-yes ,.delete-no {
+    display: block;
+    height: 50px;
+    width: 150px;
+    padding: 3px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); 
+    line-height: 50px;
+
+}
+
+.delete-yes {
+    background-color: red;
+}
+
+.delete-yes:hover {
+    color: yellow;
+}
+
+.delete-no {
+    background-color: grey;
+}
+
+
+/*********************
+edit
+*********************/
+
+.edit-container form {
+    height: 600px;
+}
+
+.match_data_edit_submit{
+    display: block;
+}
+
+
+/*********************
+detail
+*********************/
+
+.menu-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-container a {
+    display: flex;
+    margin-top: 10px;
+    width: 20%;
+    font-size: 20px;
+    align-items: center;
+}
+
+.menu-container i {
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+.match_leader {
+    margin-bottom: 200px;
+    text-align: center;
+}
+
+.match_leader table {
+    margin: 0 auto;
+}

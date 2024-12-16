@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header">
+    <h1>詳細画面</h1>
+</div>
+<div class="data">
+    <div class="data-title">
+        <h1 id="date-all-h1">いままでの試合結果　現在は{{match_count.match_count}}戦{{match_count.win_count}}勝{{match_count.lose_count}}敗{{match_count.draw_count}}分です</h1>
+        <h1 class="date-filter-h1" id="date-filter-h1" style="display: none;">{{ start_date }}~{{ end_date }}の試合結果は<br>{{match_count.match_count}}戦{{match_count.win_count}}勝{{match_count.lose_count}}敗{{match_count.draw_count}}分です</h1>
+        <!-- aタグをbuttonタグに変更 -->
+        <button class="delete-btn" id="delete-btn">データ削除</button>
+        <!--これは、データ削除用-->
+        <div class="delete-container" id="delete-container" style="display: none;">
+            <div class="delete-wrapper">
+                <p>全データ削除しますか？</p>
+                <div class="delete-select-box">
+                    <a href="{% url 'delete' %}" class="delete-yes">削除します</a>
+                    <a href="" class="delete-no">削除しません</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="filter-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ date_filter_form.start_date }}　〜　
+            {{ date_filter_form.end_date }}
+            <button type="submit" name="date_filter_submit" class="filter-btn" id="date-filter-btn" >データ絞り込み</button>
+        </form>
+    </div>
+    <div class="table-container">
+        <table>
+            <tbody>
+                <tr class="table-heading">
+                    <th class="th-no">No</th>
+                    <th>対戦日</th>
+                    <th>試合結果</th>
+                    <th>つよP増減</th>
+                    <th>対戦リーダー</th>
+                    <th>メモ</th>
+                    <th class="th-edit">編集</th>
+                </tr>
+                {% for data in match_data %}
+                    <tr>
+                        <td class="td-no">{{data.id}}</td>
+                        <td>{{data.date}}</td>
+                        <td id="data-match-result" data-match-result="{{data.match_result}}">{{data.match_result}}</td>
+                        <td>{{data.match_point}}</td>
+                        <td>{{data.match_leader}}</td>
+                        <td class="td-memo">{{data.memo}}</td>
+                        <td class="td-edit"><a href="{% url 'edit' pk=data.id %}"><i class="fas fa-pen"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="menu-container">
+        <a href="{% url 'main' %}">トップ画面へ
+            <i class="fas fa-home"></i>
+        </a>
+        <div class="strong-sum">
+            <p>集計期間中のつよPの合計は　{{ match_count.sum_point }}　です</p> 
+        </div>
+    </div>
+
+    <div class="match_leader">
+        <h1>リーダー出現回数</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <th>出現リーダー</th>
+                    <th>対戦回数</th>
+                </tr>
+                {% for key,value in leader_counts.items %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    //これは、削除しますか？ボタンを表示させるjsc
+    let delete_btn = document.getElementById('delete-btn')
+    let delete_container = document.getElementById('delete-container')
+
+    delete_btn.addEventListener('click',()=>{
+        delete_container.style.display = 'flex'
+    })
+
+    //これは、フィルターをかけた際に◯〜◯の対戦成績と表示するjsc
+    // start_dateの値を取得する（ここでは例として変数にセット）
+    const start_date = "{{ start_date }}"; // 例：サーバーサイドで置き換えられる想定
+    // 要素を取得
+    const dateAllH1 = document.getElementById('date-all-h1');
+    const dateFilterH1 = document.getElementById('date-filter-h1');
+    // start_dateに値があるかチェック
+    if (start_date && start_date.trim() !== '') {
+        dateAllH1.style.display = 'none'; // すべての試合結果を非表示
+        dateFilterH1.style.display = 'block'; // フィルタされた試合結果を表示
+    }
+
+     //勝敗に応じて色を変えるjs
+
+    // すべての "data-match-result" 属性を持つ <td> 要素を取得
+        const matchResultCells = document.querySelectorAll('td[data-match-result]');
+
+    matchResultCells.forEach(function(cell) {
+    const matchResult = cell.getAttribute('data-match-result'); // data-match-result の値を取得
+
+    // 値に応じて色を変更
+    if (matchResult === '完全勝利') {
+        cell.style.backgroundColor = 'red'; // 完全勝利の場合は緑
+        cell.style.color = 'white'; // 文字色を白にする
+    } else if (matchResult === '点差勝利') {
+        cell.style.backgroundColor = 'orange'; // 点差勝利の場合は黄色
+    } else if (matchResult === '完全敗北') {
+        cell.style.backgroundColor = 'blue'; // 敗北の場合は赤
+        cell.style.color = 'white'; // 文字色を白にする
+    } else if (matchResult === '点差敗北') {
+        cell.style.backgroundColor = '#bae0e6'; // 敗北の場合は赤
+    } else {
+        cell.style.backgroundColor = 'gray'; // その他の場合は灰色
+    }
+});
+
+</script>
+
+{% endblock %}

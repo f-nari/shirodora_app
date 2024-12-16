@@ -1,0 +1,105 @@
+/*************************
+共通
+*************************/
+
+body {
+    background-color: #949593;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+    color: red;
+    z-index: 5000;
+}
+
+
+/*************************
+login.html
+*************************/
+
+
+.login_container {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.login_box {
+    margin-top: 200px;
+    padding: 10px 0;
+    background-color: white;
+    text-align: center;
+}
+
+.login_input {
+    border-radius: 10px;
+}
+
+.login_box button {
+    display: inline-block;
+    width: 20%;
+    margin-top: 30px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.login_container a {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none; /* 下線を消したい場合 */
+}
+/*************************
+user_creation.html
+*************************/
+
+.creation_container {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.creation_box {
+    margin-top: 200px;
+    padding: 10px 0;
+    background-color: white;
+    text-align: center;
+    position: relative;
+}
+
+.creation_box a {
+    display: flex;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.creation_box i {
+    position: relative;
+}
+
+.creation_form p {
+    font-weight: bold;
+}
+
+.creation_form ul {
+    list-style-position: inside;
+}
+
+.creation_form li {
+    color: #f22952;
+}
+
+.creation_form button {
+    display: block;
+    margin: 10px auto 0 auto;
+}
