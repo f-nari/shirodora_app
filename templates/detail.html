@@ -6,8 +6,8 @@
 </div>
 <div class="data">
     <div class="data-title">
-        <h1 id="date-all-h1">いままでの試合結果　現在は{{match_count.match_count}}戦{{match_count.win_count}}勝{{match_count.lose_count}}敗{{match_count.draw_count}}分です</h1>
-        <h1 class="date-filter-h1" id="date-filter-h1" style="display: none;">{{ start_date }}~{{ end_date }}の試合結果は<br>{{match_count.match_count}}戦{{match_count.win_count}}勝{{match_count.lose_count}}敗{{match_count.draw_count}}分です</h1>
+        <h1 id="date-all-h1">いままでの試合結果　現在は{{match_result_dict.match_count}}戦{{match_result_dict.win_count}}勝{{match_result_dict.lose_count}}敗{{match_result_dict.draw_count}}分です</h1>
+        <h1 class="date-filter-h1" id="date-filter-h1" style="display: none;">{{ filter_start_date }}~{{ filter_end_date }}の試合結果は<br>{{match_result_dict.match_count}}戦{{match_result_dict.win_count}}勝{{match_result_dict.lose_count}}敗{{match_result_dict.draw_count}}分です</h1>
         <!-- aタグをbuttonタグに変更 -->
         <button class="delete-btn" id="delete-btn">データ削除</button>
         <!--これは、データ削除用-->
@@ -24,8 +24,8 @@
     <div class="filter-container">
         <form method="post">
             {% csrf_token %}
-            {{ date_filter_form.start_date }}　〜　
-            {{ date_filter_form.end_date }}
+            {{ match_date_filter_form.filter_start_date }}　〜　
+            {{ match_date_filter_form.filter_end_date }}
             <button type="submit" name="date_filter_submit" class="filter-btn" id="date-filter-btn" >データ絞り込み</button>
         </form>
     </div>
@@ -43,7 +43,7 @@
                 </tr>
                 {% for data in match_data %}
                     <tr>
-                        <td class="td-no">{{data.id}}</td>
+                        <td class="td-no">{{ forloop.revcounter }}</td>
                         <td>{{data.date}}</td>
                         <td id="data-match-result" data-match-result="{{data.match_result}}">{{data.match_result}}</td>
                         <td>{{data.match_point}}</td>
@@ -60,7 +60,7 @@
             <i class="fas fa-home"></i>
         </a>
         <div class="strong-sum">
-            <p>集計期間中のつよPの合計は　{{ match_count.sum_point }}　です</p> 
+            <p>集計期間中のつよPの合計は　{{ match_result_dict.sum_point }}　です</p> 
         </div>
     </div>
 
@@ -92,8 +92,8 @@
     })
 
     //これは、フィルターをかけた際に◯〜◯の対戦成績と表示するjsc
-    // start_dateの値を取得する（ここでは例として変数にセット）
-    const start_date = "{{ start_date }}"; // 例：サーバーサイドで置き換えられる想定
+    // filter_start_dateの値を取得する（ここでは例として変数にセット）
+    const start_date = "{{ filter_start_date }}"; // 例：サーバーサイドで置き換えられる想定
     // 要素を取得
     const dateAllH1 = document.getElementById('date-all-h1');
     const dateFilterH1 = document.getElementById('date-filter-h1');
@@ -106,7 +106,7 @@
      //勝敗に応じて色を変えるjs
 
     // すべての "data-match-result" 属性を持つ <td> 要素を取得
-        const matchResultCells = document.querySelectorAll('td[data-match-result]');
+    const matchResultCells = document.querySelectorAll('td[data-match-result]');
 
     matchResultCells.forEach(function(cell) {
     const matchResult = cell.getAttribute('data-match-result'); // data-match-result の値を取得

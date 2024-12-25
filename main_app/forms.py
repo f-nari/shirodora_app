@@ -37,7 +37,7 @@ class Match_Data_Form(forms.ModelForm): #モデルのデータをそのまま使
         
         
 class DataFilterForm(forms.Form):
-    start_date = forms.DateField(
+    filter_start_date = forms.DateField(
         widget = forms.DateInput(attrs = {
             'type': 'date',
             'class':'form-date',#あとでクラス変える
@@ -45,7 +45,7 @@ class DataFilterForm(forms.Form):
         }),
         
     )
-    end_date = forms.DateField(
+    filter_end_date = forms.DateField(
         widget = forms.DateInput(attrs = {
             'type': 'date',
             'class':'form-date',#あとでクラス変える
