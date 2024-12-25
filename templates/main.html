@@ -4,7 +4,7 @@
 <div class="header">
     <h1>城とドラゴン　つよP管理サイト</h1>
     <div class="header-box">
-        <p>{{ user }}さん こんにちは</p>
+        <p>{{ user_name }}さん こんにちは</p>
         <a href="{% url 'logout' %}">ログアウト</a>
     </div>
 </div>
@@ -15,23 +15,23 @@
         <form method="post">
             {% csrf_token %}
             <p>試合日</p>
-            {{ form.date }}
+            {{ match_input_form.date }}
             <p>試合結果</p>
-            {{ form.match_result }}
+            {{ match_input_form.match_result }}
             <p>つよP増減</p>
-            {{ form.match_point }}
+            {{ match_input_form.match_point }}
             <p>対戦リーダー</p>
-            {{ form.match_leader }}
+            {{ match_input_form.match_leader }}
             <p>メモ</p>
-            {{ form.memo }}
+            {{ match_input_form.memo }}
             <button type="submit" name="match_data_submit">登録</button>
         </form>
         {% endif %}
     </div>
     <div class="data">
         <div class="data-title">
-            <h1 id="date-all-h1">いままでの試合結果　現在は{{match_count.match_count}}戦{{match_count.win_count}}勝{{match_count.lose_count}}敗{{match_count.draw_count}}分です</h1>
-            <h1 class="date-filter-h1" id="date-filter-h1" style="display: none;">{{ start_date }}　から　{{ end_date }}の試合結果は<br>{{match_count.match_count}}戦{{match_count.win_count}}勝{{match_count.lose_count}}敗{{match_count.draw_count}}分です</h1>
+            <h1 id="date-all-h1">いままでの試合結果　現在は{{match_result_dict.match_count}}戦{{match_result_dict.win_count}}勝{{match_result_dict.lose_count}}敗{{match_result_dict.draw_count}}分です</h1>
+            <h1 class="date-filter-h1" id="date-filter-h1" style="display: none;">{{ filter_start_date }}　から　{{ filter_end_date }}の試合結果は<br>{{match_result_dict.match_count}}戦{{match_result_dict.win_count}}勝{{match_result_dict.lose_count}}敗{{match_result_dict.draw_count}}分です</h1>
             <!-- aタグをbuttonタグに変更 -->
             <button class="delete-btn" id="delete-btn">データ削除</button>
             <!--これは、データ削除用-->
@@ -48,8 +48,8 @@
         <div class="filter-container">
             <form method="post">
                 {% csrf_token %}
-                {{ date_filter_form.start_date }}　〜　
-                {{ date_filter_form.end_date }}
+                {{ match_date_filter_form.filter_start_date }}　〜　
+                {{ match_date_filter_form.filter_end_date }}
                 <button type="submit" name="date_filter_submit" class="filter-btn" id="date-filter-btn" >データ絞り込み</button>
             </form>
         </div>
@@ -85,7 +85,7 @@
                 <i class="fas fa-th"></i>
             </a>
             <div class="strong-sum">
-                <p>集計期間中のつよPの合計は　{{ match_count.sum_point }}　です</p> 
+                <p>集計期間中のつよPの合計は　{{ match_result_dict.sum_point }}　です</p> 
             </div>
         </div>
 
@@ -101,8 +101,8 @@
     })
 
     //これは、フィルターをかけた際に◯〜◯の対戦成績と表示するjsc
-    // start_dateの値を取得する（ここでは例として変数にセット）
-    const start_date = "{{ start_date }}"; // 例：サーバーサイドで置き換えられる想定
+    // filter_start_dateの値を取得する（ここでは例として変数にセット）
+    const start_date = "{{ filter_start_date }}"; // 例：サーバーサイドで置き換えられる想定
     // 要素を取得
     const dateAllH1 = document.getElementById('date-all-h1');
     const dateFilterH1 = document.getElementById('date-filter-h1');
@@ -136,19 +136,6 @@
         cell.style.backgroundColor = 'gray'; // その他の場合は灰色
     }
 });
-    /*
-    const matchResultCells = document.querySelectorAll('td[data-match-result]');
-    let data_match_result = document.getElementById('data-match-result')
-    let matchResult = data_match_result.getAttribute('data-match-result')
-
-    
-
-    if (matchResult === '完全勝利' || matchResult === '点差勝利'){
-        data_match_result.style.backgroundColor = 'red'
-    } else if(matchResult === '完全敗北' || matchResult === '点差敗北') {
-        data_match_result.style.backgroundColor = 'blue'
-    }
-*/
 
 
 </script>
