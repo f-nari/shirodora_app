@@ -4,4 +4,5 @@ __pycache__/
 *.pyc
 /static/
 /.DS_Store/
-
+auth/
+.env
