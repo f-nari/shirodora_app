@@ -12,16 +12,24 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+import os
+
+CURRENT_FILE = Path(__file__).resolve()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = CURRENT_FILE.parent.parent.parent
+PARENT_DIR = CURRENT_FILE.parent.parent.parent.parent
+env_path = PARENT_DIR / "shirodora_app/auth/.env"
+load_dotenv(env_path)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-63vf123s3hffd!0!&g^xd)zsjrtj*@-fft+$ol7c2+4x_1$iig'
+# SECRET_KEY = 'django-insecure-63vf123s3hffd!0!&g^xd)zsjrtj*@-fft+$ol7c2+4x_1$iig'
+SECRET_KEY = os.environ.get("secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,8 +87,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("name_db"),
+        'USER':  os.environ.get("user_db"),
+        'PASSWORD': os.environ.get("pswd_db"),
+        'HOST': 'localhost',
+        'PORT': '5432',
+        
     }
 }
 

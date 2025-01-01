@@ -71,6 +71,7 @@ class MainView(LoginRequiredMixin,View): #LoginRequiredMixinを追加するこ�
             match_data_query_results = Match_Data.objects.filter(user = user_name).order_by('-id') 
             if not match_data_query_results.exists():
                 match_data = Match_Data.objects.none()
+                match_result_dict = None
             else:
                 match_data        = match_data_query_results
                 match_result_dict = match_count_function(match_data_query_results)
